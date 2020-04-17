@@ -1,9 +1,0 @@
-torch 
-pyworld 
-pysptk 
-h5py 
-numpy 
-kaldi-io 
-librosa 
-scipy 
-scikit-learn
