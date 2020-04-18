@@ -69,11 +69,6 @@ GAN : discriminator
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_type', type=str)
-parser.add_argument('--SI', type=int, default=0)
-parser.add_argument('--I', type=int, default=0)
-parser.add_argument('--LI', type=int, default=0)
-parser.add_argument('--AC', type=int, default=0)
-parser.add_argument('--SC', type=int, default=0)
 parser.add_argument('--CC', type=int, default=0)
 
 
@@ -82,7 +77,7 @@ parser.add_argument('--model_dir', default='')
 parser.add_argument('--lr', type=float, default=0)
 
 args = parser.parse_args()
-assert args.model_type in ["VAE1", "VAE2", "VAE3", "MD"]
+assert args.model_type in ["VAE3", "MD"]
 
 # Data load
 SPK_LIST = ['VCC2SF1', 'VCC2SF2', 'VCC2SM1', 'VCC2SM2']
