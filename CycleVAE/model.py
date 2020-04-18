@@ -108,7 +108,7 @@ class Decoder(nn.Module):
         self.latent_dim = kwargs.get("latent_dim", 8)
         self.vae_type = kwargs.get("vae_type", '')
 
-        assert self.vae_type in ['VAE1', 'VAE2', 'VAE3', 'MD'], "VAE type error"
+        assert self.vae_type in ['VAE3', 'MD'], "VAE type error"
 
         """
         (1, 36, 128) => (5, 36, 128) => (10, 18, 64) => (10, 9, 32) => (16, 1, 32)
@@ -122,7 +122,7 @@ class Decoder(nn.Module):
 
         inC = self.latent_dim
         self.convs= nn.ModuleList([])
-        if self.vae_type in ['VAE1', 'VAE2', 'VAE3']:
+        if self.vae_type in ['VAE3']:
             inC += self.style_dim
         for layer_idx in range(layer_num):
             outC = C_structure[layer_idx]
@@ -141,18 +141,18 @@ class Decoder(nn.Module):
                     )
                 )
             inC = outC
-            if self.vae_type in ['VAE2', 'VAE3']:
+            if self.vae_type in ['VAE3']:
                 inC += self.style_dim
         
     def forward(self, x, style):
         h = x
-        if self.vae_type in ['VAE1', 'VAE2', 'VAE3']:
+        if self.vae_type in ['VAE3']:
             h = attach_style(h, style)
     
         for conv in self.convs:
             
             h = conv(h)
-            if self.vae_type in ['VAE2', 'VAE3']:
+            if self.vae_type in ['VAE3']:
                 h = attach_style(h, style)
 
         h_mu = self.conv_mu(h)
