@@ -36,9 +36,6 @@ class LogManager:
             print(stat_type,":",stat, end=' / ')
         print(" ")
 
-def l2loss(pred, true):
-    """ mean of loss^2 """
-    return torch.mean(torch.pow(pred - true, 2)) / 2
 
 def calc_gaussprob(x, mu, log_var):
     c = torch.log(2.*torch.from_numpy(np.array(3.141592)))
@@ -63,15 +60,3 @@ def calc_kl_vae(mu, logvar):
         (logvar2 - logvar) + torch.div(logvar + mu_diff_sq, logvar2 + 1e-6) - 1.)
     
     return torch.mean(dimwise_kld)
-
-def nllloss(pred, true):
-    return F.nll_loss(pred, true)
-
-def calc_entropy(x):
-    H = -torch.mean(x*torch.log2(x))
-    return H
-
-def calc_err(pred, true):
-    ans = torch.max(pred,dim=1)[1]
-    err = torch.mean((true!=ans).float())
-    return err
