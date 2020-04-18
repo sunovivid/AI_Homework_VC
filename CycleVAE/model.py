@@ -160,67 +160,6 @@ class Decoder(nn.Module):
         o = reparameterize(h_mu, h_logvar)
      
         return h_mu, h_logvar, o
-
-class Discriminator(nn.Module):
-    def __init__(self, *args, **kwargs):
-        """
-        (1, 36, 128)
-        (4, 18, 32)
-        (16, 9, 16)
-        (4, 4, 8)
-        (1, 1, 1) = (label_dim, 1, 1)
-        """
-        super(Discriminator, self).__init__()
-        self.style_dim = kwargs.get("style_dim", 0)
-        self.vae_type = kwargs.get("vae_type", '')
-        assert self.vae_type in ['VAE1', 'VAE2', 'VAE3', 'MD'], "VAE type error"
-        
-        C_structure = [8, 16, 32, 16, 1]
-        k_structure = [(4,4), (4,4), (4,4), (3,4), (1,1)]
-        s_structure = [(2,2), (2,2), (2,2), (1,2), (1,1)]
-
-        layer_num = len(C_structure)
-
-        inC = 1
-        self.convs= nn.ModuleList([])
-        for layer_idx in range(layer_num):
-            if self.vae_type in ['VAE1', 'VAE2', 'VAE3']:
-                inC += self.style_dim
-            outC = C_structure[layer_idx]
-            k = k_structure[layer_idx]
-            s = s_structure[layer_idx]
-            p = ((k[0]-s[0])//2, (k[1]-s[1])//2)
-
-            if layer_idx == layer_num-1:
-                self.conv_out = nn.Sequential(
-                    nn.Conv2d(inC, outC, k, s, padding=p)
-                )
-            else:
-                self.convs.append(
-                    nn.Sequential(
-                        Conv2d_GLU(inC=inC, outC=outC, k=k, s=s, p=p),
-                        nn.Dropout(0.1)
-                    )
-                )
-                inC = outC
-        self.linear = nn.Linear(32, 1)
-        
-    def forward(self, x, style):
-        h = x
-        if self.vae_type in ['VAE1', 'VAE2', 'VAE3']:
-            h = attach_style(h, style)
-        for conv in self.convs:
-            h = conv(h)
-            if self.vae_type in ['VAE1', 'VAE2', 'VAE3']:
-                h = attach_style(h, style)
-
-        o = self.conv_out(h)
-        o = o.view(-1, 32)
-        o = self.linear(o)
-        # o = torch.sigmoid(o)
-
-        return o
-     
 class LatentClassifier(nn.Module):
     def __init__(self, *args, **kwargs):
         """
