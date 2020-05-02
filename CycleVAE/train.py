@@ -104,6 +104,7 @@ model_dir = "model/" + args.model_type
 if args.CC:
     model_dir += "_CC"
 
+#TODO: change lr
 lr = 0.00005
 coef_dict = {
     "VAE": {"rec": 3.0, "cyc": 1.0, "adv": 1.0, "kl": 1.0},
@@ -124,6 +125,7 @@ else:
 print(model_dir)
 os.makedirs(model_dir + "/parm", exist_ok=True)
 
+#TODO: change latent dim
 latent_dim = 8
 
 is_MD = True if args.model_type == "MD" else False
@@ -156,7 +158,9 @@ else:
 
 # 8 16
 # (0-499) (500-999)
+#TODO: change init batch size
 init_batch_size = 4
+#TODO: change epoch
 epochs = 1000
 print("Training Settings")
 print("LR", lr)
@@ -184,6 +188,7 @@ for epoch in range(epochs):
 
     batch_size = init_batch_size * pow(2, epoch // 250)
 
+    # TODO: change cycle consistency applying moment
     if epoch == 500:
         coef["cyc"] = 1.0
 
