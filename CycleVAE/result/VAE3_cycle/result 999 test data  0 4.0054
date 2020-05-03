@@ -1,0 +1,19 @@
+model/MD_CC
+152768
+Training Settings
+LR 0.0001
+Batch Size 4
+Number of epochs 1
+.....................
+EPOCH: 0
+Batch Size 4
+Cyc training: True
+Train:  
+DEV: rec_loss : 1.9289 / kl_loss : 0.0255 / cyc_loss : 2.0765 /  
+.....................
+***********************************
+Model name: MD_CC
+TIME PER EPOCH: 1.4684743881225586
+Final Epoch: 0 4.0054
+***********************************
+

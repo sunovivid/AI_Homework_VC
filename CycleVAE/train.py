@@ -138,7 +138,7 @@ print(model_dir)
 os.makedirs(model_dir + "/parm", exist_ok=True)
 
 #TODO: change latent dim
-latent_dim = 2
+latent_dim = 16
 
 is_MD = True if args.model_type == "MD" else False
 
