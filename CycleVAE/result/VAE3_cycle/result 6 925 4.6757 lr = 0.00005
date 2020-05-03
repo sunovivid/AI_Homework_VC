@@ -1,0 +1,12 @@
+model/MD_CC
+126832
+Training Settings
+LR 5e-05
+Batch Size 4
+Number of epochs 1000
+
+***********************************
+Model name: MD_CC
+TIME PER EPOCH: 1.3442321007251739
+Final Epoch: 925 4.6757
+***********************************

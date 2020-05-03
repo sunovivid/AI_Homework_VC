@@ -1,0 +1,14 @@
+model/MD_CC
+113864
+Training Settings
+LR 0.0001
+Batch Size 2
+Number of epochs 1000
+Latent dim 4
+
+***********************************
+Model name: MD_CC
+TIME PER EPOCH: 1.4245127484798432
+Final Epoch: 700 4.9652
+***********************************
+

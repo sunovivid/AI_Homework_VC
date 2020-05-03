@@ -1,0 +1,19 @@
+model/MD_CC
+126832
+Training Settings
+LR 0.005
+Batch Size 4
+Number of epochs 1000
+
+.....................
+EPOCH: 5
+Train: rec_loss : nan / kl_loss : nan /  
+DEV: rec_loss : nan / kl_loss : nan /  
+.....................
+Nan at 5
+***********************************
+Model name: MD_CC
+TIME PER EPOCH: 0.012999814748764039
+Final Epoch: 0 6.3347
+***********************************
+
